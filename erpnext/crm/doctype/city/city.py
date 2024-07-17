@@ -15,5 +15,6 @@ class City(Document):
 		from frappe.types import DF
 
 		label: DF.Data
+		region: DF.Link | None
 	# end: auto-generated types
 	pass
