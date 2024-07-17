@@ -14,6 +14,6 @@ class Region(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		name1: DF.Data | None
+		label: DF.Data
 	# end: auto-generated types
 	pass

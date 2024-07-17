@@ -2,27 +2,30 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "prompt",
+ "autoname": "field:label",
  "creation": "2024-07-03 11:49:24.890887",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name"
+  "label"
  ],
  "fields": [
   {
-   "fieldname": "name",
+   "fieldname": "label",
    "fieldtype": "Data",
-   "label": "Name"
+   "in_list_view": 1,
+   "label": "Label",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-07-16 16:07:43.789390",
+ "modified": "2024-07-17 14:54:44.303153",
  "modified_by": "Administrator",
  "module": "CRM",
  "name": "Region",
- "naming_rule": "Set by user",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
