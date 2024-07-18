@@ -249,4 +249,16 @@ frappe.ui.form.on("Customer", {
 		});
 		dialog.show();
 	},
+	// Custom script
+	custom_regija: function(frm) {
+        frm.set_query("custom_city", function() {
+            return {
+                filters: [
+                    ["City", "region", "=", frm.doc.custom_regija]
+                ]
+            };
+        });
+        // Clear the city field when region is changed
+        frm.set_value('custom_city', '');
+    }
 });
