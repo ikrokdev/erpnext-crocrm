@@ -14,6 +14,7 @@
   "color",
   "is_group",
   "is_template",
+  "customer",
   "column_break0",
   "status",
   "priority",
@@ -392,6 +393,12 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Template Task"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Linked Customer",
+   "options": "Customer"
   }
  ],
  "icon": "fa fa-check",
@@ -399,7 +406,7 @@
  "is_tree": 1,
  "links": [],
  "max_attachments": 5,
- "modified": "2024-01-08 16:00:41.296203",
+ "modified": "2024-09-24 01:49:36.115008",
  "modified_by": "Administrator",
  "module": "Projects",
  "name": "Task",

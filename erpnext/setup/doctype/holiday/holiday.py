@@ -15,6 +15,7 @@ class Holiday(Document):
 		from frappe.types import DF
 
 		description: DF.TextEditor
+		email_notification: DF.TextEditor | None
 		holiday_date: DF.Date
 		parent: DF.Data
 		parentfield: DF.Data

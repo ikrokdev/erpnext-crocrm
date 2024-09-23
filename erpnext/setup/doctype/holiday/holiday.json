@@ -10,7 +10,8 @@
   "column_break_2",
   "weekly_off",
   "section_break_4",
-  "description"
+  "description",
+  "email_notification"
  ],
  "fields": [
   {
@@ -44,17 +45,23 @@
   {
    "fieldname": "section_break_4",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "email_notification",
+   "fieldtype": "Text Editor",
+   "label": "Email Notification"
   }
  ],
  "idx": 1,
  "istable": 1,
  "links": [],
- "modified": "2020-04-18 19:03:23.507845",
+ "modified": "2024-09-24 01:52:03.998940",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Holiday",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
- "sort_order": "ASC"
+ "sort_order": "ASC",
+ "states": []
 }
