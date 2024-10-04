@@ -16,6 +16,7 @@ class Holiday(Document):
 
 		description: DF.TextEditor
 		email_notification: DF.TextEditor | None
+		email_subject: DF.Data | None
 		holiday_date: DF.Date
 		parent: DF.Data
 		parentfield: DF.Data

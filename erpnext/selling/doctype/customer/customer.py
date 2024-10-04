@@ -15,6 +15,7 @@ from frappe.model.mapper import get_mapped_doc
 from frappe.model.naming import set_name_by_naming_series, set_name_from_naming_options
 from frappe.model.utils.rename_doc import update_linked_doctypes
 from frappe.utils import cint, cstr, flt, get_formatted_email, today
+import frappe.utils
 from frappe.utils.deprecations import deprecated
 from frappe.utils.user import get_users_with_role
 
@@ -808,3 +809,61 @@ def parse_full_name(full_name: str) -> tuple[str, str | None, str | None]:
 	last_name = names[-1] if len(names) > 1 else None
 
 	return first_name, middle_name, last_name
+
+frappe.whitelist()
+def send_birthday_email_now(customer):
+    customer_doc = frappe.get_doc('Customer', customer)
+
+    if not customer_doc.custom_email_1:
+        frappe.throw('Customer does not have an email address.')
+    if not customer_doc.custom_birthday_email_template:
+        frappe.throw('Customer does not have a Birthday Email Template.')
+
+    email_template = frappe.get_doc('Email Template', customer_doc.custom_birthday_email_template)
+
+    frappe.sendmail(
+        recipients=[customer_doc.custom_email_1],
+        subject=email_template.subject,
+        message=email_template.response,
+        reference_doctype='Customer',
+        reference_name=customer
+    )
+
+    frappe.msgprint(f"Birthday email sent to {customer_doc.custom_email_1}")
+
+@frappe.whitelist()
+def send_holiday_email_now(customer, holiday):
+	customer_doc = frappe.get_doc('Customer', customer)
+	holiday_subject = frappe.get_list('Holiday', filters={'description': holiday}, pluck='email_subject')[0]
+	holiday_text = frappe.get_list('Holiday', filters={'description': holiday}, pluck='email_notification')[0]
+
+	if not customer_doc.custom_email_1:
+		frappe.throw('Customer does not have an email address.')
+
+	# Check if holiday_doc is not empty and access the first item
+	if not holiday_subject or not holiday_text:
+		frappe.throw(f'Subject or Text for "{holiday}" Email Notification is not set.')
+
+	frappe.sendmail(
+		recipients=[customer_doc.custom_email_1],
+		subject=holiday_subject,  # Access first item
+		message=holiday_text,      # Access first item
+		reference_doctype='Customer',
+		reference_name=customer
+	)
+
+	frappe.msgprint(f"Holiday email sent to {customer_doc.custom_email_1}")
+
+@frappe.whitelist()
+def get_holidays_for_today():
+    today = frappe.utils.today()
+    
+    # Get the holiday list based on today's date
+    holiday_list = frappe.get_list("Holiday List", filters=[['from_date', '<=', today], ['to_date', '>=', today]])
+    if holiday_list:
+        # Get holidays associated with the first holiday list found
+        holidays = frappe.get_list("Holiday", pluck='description', filters={'parent': holiday_list[0].get('name')})
+    else:
+        holidays = []
+    
+    return holidays
