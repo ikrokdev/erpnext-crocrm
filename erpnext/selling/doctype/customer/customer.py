@@ -810,7 +810,7 @@ def parse_full_name(full_name: str) -> tuple[str, str | None, str | None]:
 
 	return first_name, middle_name, last_name
 
-frappe.whitelist()
+@frappe.whitelist()
 def send_birthday_email_now(customer):
     customer_doc = frappe.get_doc('Customer', customer)
 
